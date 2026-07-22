@@ -227,6 +227,7 @@ function Router() {
           <Route path="/resources/chainmail-size-guide" component={ChainmailGuide} />
           <Route path="/resources/helmet-size-guide" component={HelmetGuide} />
           <Route path="/resources/leather-care-guide" component={LeatherGuide} />
+          <Route path="/resources/faq" component={Faqs} />
 
           <Route component={NotFound} />
         </Switch>

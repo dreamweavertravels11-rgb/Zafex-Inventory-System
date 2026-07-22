@@ -6,7 +6,7 @@ const resourceCards = [
   { label: 'Chainmail Size Guide', href: '/resources/chainmail-size-guide' },
   { label: 'Helmet Size Guide', href: '/resources/helmet-size-guide' },
   { label: 'Leather Care Guide', href: '/resources/leather-care-guide' },
-  { label: 'FAQ', href: '/faqs' },
+  { label: 'FAQ', href: '/resources/faq' },
 ];
 
 const Resources = () => (
