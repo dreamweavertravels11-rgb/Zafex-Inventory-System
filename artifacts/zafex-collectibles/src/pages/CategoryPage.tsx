@@ -10,17 +10,56 @@ interface CategoryPageProps {
 const CategoryPage = ({ categorySlug, subSlug }: CategoryPageProps) => {
   const category = NAV_CATEGORIES.find((c) => c.slug === categorySlug);
   const sub = subSlug ? category?.subs.find((s) => s.slug === subSlug) : null;
-  const isCollections = categorySlug === 'collections';
-  const collectionVisuals = [
-    { image: '/images/full-body-armor.png', eyebrow: '01', description: 'Iconic pieces chosen by our collectors.' },
-    { image: '/images/sword.png', eyebrow: '02', description: 'Freshly forged pieces from the latest drop.' },
-    { image: '/images/leather-breastplates.png', eyebrow: '03', description: 'Craftsman favourites with a distinctive edge.' },
-    { image: '/images/gambeson.png', eyebrow: '04', description: 'Made slowly, carefully, and entirely by hand.' },
-    { image: '/images/horn-mug.png', eyebrow: '05', description: 'Rare finds for discerning enthusiasts.' },
-    { image: '/images/viking-shield.png', eyebrow: '06', description: 'Festival-ready details and bold character.' },
-    { image: '/images/gladitor-helmet.png', eyebrow: '07', description: 'Inspired by cinema, grounded in history.' },
-    { image: '/images/chainmail-shirt.png', eyebrow: '08', description: 'Faithful recreations for modern collectors.' },
-  ];
+  const cardVisualsByCategory: Record<string, { image: string; description: string }[]> = {
+    collections: [
+      { image: '/images/full-body-armor.png', description: 'Iconic pieces chosen by our collectors.' },
+      { image: '/images/sword.png', description: 'Freshly forged pieces from the latest drop.' },
+      { image: '/images/leather-breastplates.png', description: 'Craftsman favourites with a distinctive edge.' },
+      { image: '/images/gambeson.png', description: 'Made slowly, carefully, and entirely by hand.' },
+      { image: '/images/horn-mug.png', description: 'Rare finds for discerning enthusiasts.' },
+      { image: '/images/viking-shield.png', description: 'Festival-ready details and bold character.' },
+      { image: '/images/gladitor-helmet.png', description: 'Inspired by cinema, grounded in history.' },
+      { image: '/images/chainmail-shirt.png', description: 'Faithful recreations for modern collectors.' },
+    ],
+    wholesale: [
+      { image: '/images/full-body-armor.png', description: 'A dedicated program for trusted retail partners.' },
+      { image: '/images/leather-breastplates.png', description: 'Distinctive products made under your label.' },
+      { image: '/images/breastplates.png', description: 'Reliable production for ambitious collections.' },
+      { image: '/images/chainmail-shirt.png', description: 'Volume orders with artisan-level finishing.' },
+      { image: '/images/viking-shield.png', description: 'Grow your range with dependable distribution.' },
+    ],
+    'custom-orders': [
+      { image: '/images/full-body-armor.png', description: 'Bespoke armor built around your vision.' },
+      { image: '/images/chainmail-shirt.png', description: 'Tailored chainmail for a precise fit.' },
+      { image: '/images/gladitor-helmet.png', description: 'Signature helmets shaped for your story.' },
+      { image: '/images/leather-breastplates.png', description: 'Custom leatherwork with character and purpose.' },
+      { image: '/images/sword.png', description: 'Museum-worthy replicas made to commission.' },
+    ],
+    'about-us': [
+      { image: '/images/full-body-armor.png', description: 'The people and place behind every piece.' },
+      { image: '/images/gambeson.png', description: 'A closer look at our workshop practice.' },
+      { image: '/images/breastplates.png', description: 'From raw material to finished craft.' },
+      { image: '/images/chainmail-shirt.png', description: 'Meet the artisans who keep the tradition alive.' },
+      { image: '/images/viking-shield.png', description: 'Our promise of quality, worldwide.' },
+      { image: '/images/sword.png', description: 'Shipping history and heritage beyond borders.' },
+    ],
+    resources: [
+      { image: '/images/sword.png', description: 'Stories, history, and inspiration from the forge.' },
+      { image: '/images/full-body-armor.png', description: 'Helpful advice for choosing your next piece.' },
+      { image: '/images/chainmail-shirt.png', description: 'Find the right fit with confidence.' },
+      { image: '/images/gladitor-helmet.png', description: 'Measure for the right helmet and comfort.' },
+      { image: '/images/leather-breastplates.png', description: 'Keep your leather looking its best.' },
+      { image: '/images/horn-mug.png', description: 'Quick answers to common questions.' },
+    ],
+  };
+  const cardVisuals = cardVisualsByCategory[categorySlug] ?? cardVisualsByCategory.collections;
+  const introByCategory: Record<string, string> = {
+    collections: 'Explore our considered edit of Zafex pieces — from new releases and staff favourites to historically faithful reproductions.',
+    wholesale: 'Partner with Zafex for dependable handcrafted products, flexible production, and long-term support.',
+    'custom-orders': 'Bring your idea to life with a considered custom commission shaped by our master artisans.',
+    'about-us': 'Discover the people, workshop, and values behind every Zafex Collectibles piece.',
+    resources: 'Explore guides, stories, and practical resources to help you choose and care for your collection.',
+  };
 
   const pageTitle = sub ? sub.label : (category?.label ?? 'Category');
   const parentLabel = category?.label ?? '';
@@ -58,42 +97,30 @@ const CategoryPage = ({ categorySlug, subSlug }: CategoryPageProps) => {
 
       {/* ── Category-level: show subcategory tiles ──────────────── */}
       {!sub && category && (
-        <section className={`w-full max-w-[1280px] mx-auto px-6 ${isCollections ? 'py-20 sm:py-24' : 'py-16'}`}>
-          {isCollections && (
-            <div className="mb-12 max-w-2xl">
-              <p className="font-serif text-[11px] uppercase tracking-[3px] text-[#b58a16]">CURATED FOR YOU</p>
-              <p className="mt-4 font-sans text-[15px] leading-relaxed text-[#625b51]">
-                Explore our considered edit of Zafex pieces — from new releases and staff favourites to historically faithful reproductions.
-              </p>
-            </div>
-          )}
-          <div className={isCollections ? 'grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4' : 'grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4'}>
+        <section className="mx-auto w-full max-w-[1280px] px-6 py-20 sm:py-24">
+          <div className="mb-12 max-w-2xl">
+            <p className="font-serif text-[11px] uppercase tracking-[3px] text-[#b58a16]">CURATED FOR YOU</p>
+            <p className="mt-4 font-sans text-[15px] leading-relaxed text-[#625b51]">
+              {introByCategory[categorySlug] ?? 'Explore the Zafex collection, carefully crafted for collectors and history enthusiasts.'}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {category.subs.map((s, index) => (
               <Link
                 key={s.slug}
                 href={`/cat/${category.slug}/${s.slug}`}
-                className={isCollections
-                  ? 'group relative flex min-h-[265px] overflow-hidden border border-[#bdb2a2] bg-[#29231d] p-6 text-left shadow-[0_10px_30px_rgba(40,27,12,0.08)] transition-all duration-500 hover:-translate-y-1 hover:border-[#b58a16] hover:shadow-[0_18px_38px_rgba(40,27,12,0.18)]'
-                  : 'group relative flex flex-col items-center justify-center overflow-hidden border border-[#d4cdc4] bg-[#e8e0d4] px-4 py-10 text-center transition-colors duration-300 hover:border-[#8b6914]'}
+                className="group relative flex min-h-[265px] overflow-hidden border border-[#bdb2a2] bg-[#29231d] p-6 text-left shadow-[0_10px_30px_rgba(40,27,12,0.08)] transition-all duration-500 hover:-translate-y-1 hover:border-[#b58a16] hover:shadow-[0_18px_38px_rgba(40,27,12,0.18)]"
               >
-                {isCollections ? (
-                  <>
-                    <img src={collectionVisuals[index].image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-65 transition-transform duration-700 group-hover:scale-110 group-hover:opacity-80" loading="lazy" />
+                <>
+                    <img src={cardVisuals[index % cardVisuals.length].image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-65 transition-transform duration-700 group-hover:scale-110 group-hover:opacity-80" loading="lazy" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#140f0b] via-[#140f0b]/45 to-transparent" />
-                    <span className="relative z-10 font-serif text-[12px] tracking-[2px] text-[#d8b75f]">{collectionVisuals[index].eyebrow}</span>
+                    <span className="relative z-10 font-serif text-[12px] tracking-[2px] text-[#d8b75f]">{String(index + 1).padStart(2, '0')}</span>
                     <div className="relative z-10 mt-auto">
                       <span className="font-serif text-[19px] font-medium uppercase tracking-[1px] text-white">{s.label}</span>
-                      <p className="mt-2 max-w-[210px] font-sans text-[11px] leading-relaxed text-white/70">{collectionVisuals[index].description}</p>
+                      <p className="mt-2 max-w-[210px] font-sans text-[11px] leading-relaxed text-white/70">{cardVisuals[index % cardVisuals.length].description}</p>
                       <span className="mt-4 inline-block border-b border-[#d8b75f] pb-1 font-sans text-[10px] font-bold uppercase tracking-[2px] text-[#d8b75f]">Explore →</span>
                     </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="absolute left-0 right-0 top-0 h-[2px] origin-left scale-x-0 bg-[#8b6914] transition-transform duration-300 group-hover:scale-x-100" />
-                    <span className="font-sans text-[11px] font-medium uppercase tracking-[1.5px] leading-snug text-[#2a2016] transition-colors group-hover:text-[#5a3e00]">{s.label}</span>
-                    <span className="mt-3 font-sans text-[10px] uppercase tracking-[2px] text-[#8b6914]/60 transition-colors group-hover:text-[#8b6914]">SHOP →</span>
-                  </>
-                )}
+                </>
               </Link>
             ))}
           </div>
