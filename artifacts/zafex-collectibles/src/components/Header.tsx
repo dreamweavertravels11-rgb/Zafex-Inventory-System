@@ -163,12 +163,6 @@ const Header = () => {
             <span className="mx-8">Free shipping on orders above ₹5,000</span>
           </div>
         </div>
-        <div className="flex h-[30px] items-center justify-center gap-5 overflow-hidden bg-[#080808] px-3 font-sans text-[9px] uppercase tracking-[1px] text-[#e9dfc9] sm:justify-between sm:px-16">
-          <span>▣ &nbsp; Free worldwide shipping on orders over $199</span>
-          <span className="hidden sm:inline">⚒ &nbsp; Custom orders welcome</span>
-          <span className="hidden md:inline">▣ &nbsp; Secure checkout &nbsp; | &nbsp; USD⌄</span>
-        </div>
-
         <div className="flex min-h-[82px] items-center justify-between gap-5 border-b border-[#ded8cd] bg-[#f4f0e8] px-5 py-3 sm:px-10 lg:px-16">
           <Link href="/" className="flex shrink-0 items-center gap-2.5">
             <div className="flex h-[48px] w-[25px] items-center justify-center border-x-2 border-[#32291d] text-[29px] text-[#32291d]">†</div>
