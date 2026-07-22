@@ -5,6 +5,7 @@ import { PRODUCTS } from '@/data/products';
 import ProductCard from '@/components/ProductCard';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import heroImage from '@assets/image_1784752327278.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -92,6 +93,31 @@ const Home = () => {
 
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#f5f0e8]">
+
+      {/* ── HERO IMAGE ── */}
+      <section className="relative flex min-h-[430px] w-full items-center overflow-hidden bg-[#111] sm:min-h-[540px] lg:min-h-[620px]">
+        <img
+          src={heroImage}
+          alt="Zafex medieval collectibles museum"
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#080b0d]/90 via-[#080b0d]/45 to-transparent" />
+        <div className="relative z-10 max-w-[560px] px-8 py-20 sm:px-16 lg:px-24">
+          <span className="font-serif text-[11px] uppercase tracking-[4px] text-[#d4af37]">THE ZAFEX COLLECTION</span>
+          <h1 className="mt-5 font-serif text-[clamp(38px,5vw,72px)] font-semibold uppercase leading-[0.95] tracking-[2px] text-[#f5f0e8]">
+            Crafted for history.
+          </h1>
+          <p className="mt-6 max-w-[390px] font-sans text-[15px] leading-relaxed text-[#f5f0e8]/80">
+            Discover museum-worthy armor, chainmail, leather goods, and historical costumes made by master artisans.
+          </p>
+          <Link
+            href="/shop"
+            className="mt-8 inline-block bg-[#c6a767] px-8 py-4 font-serif text-[11px] font-bold uppercase tracking-[2px] text-[#171713] transition-colors hover:bg-[#f2d49a]"
+          >
+            Explore the collection →
+          </Link>
+        </div>
+      </section>
 
       {/* ── NEW ARRIVALS ── */}
       <section className="py-[80px] bg-[#f5f0e8]">

@@ -40,10 +40,20 @@ function ContentPage({ title, children }: { title: string; children: React.React
 /* ── Static policy / info pages ─────────────────────────────────────── */
 const Faqs = () => (
   <ContentPage title="FAQs">
-    <h3 className="font-serif text-xl text-[#1a1a18] mt-8 mb-4">How long does shipping take?</h3>
-    <p>We dispatch active stock within 2-3 business days. International shipping via express courier typically takes 7-14 days depending on customs.</p>
-    <h3 className="font-serif text-xl text-[#1a1a18] mt-8 mb-4">Are the weapons battle-ready?</h3>
-    <p>Our steel weapons are high carbon steel but are sold primarily for display and light reenactment unless specified as "battle-ready" (thick edges, rounded tips). Our LARP weapons are completely safe for full-contact foam fighting.</p>
+    {[
+      ['Do you ship internationally?', 'Yes. We ship worldwide using trusted international courier partners.'],
+      ['Can I request a custom product?', 'Yes. We specialize in custom-made medieval armor, chainmail, leather goods, and historical costumes.'],
+      ['How long does production take?', 'Ready-made items generally ship within 2–5 business days. Custom orders usually require 7–21 business days.'],
+      ['Which payment methods do you accept?', 'We accept major credit and debit cards and other secure payment methods available during checkout.'],
+      ['Will I receive tracking information?', 'Yes. Tracking details are emailed once your order has been shipped.'],
+      ['Are import duties included?', 'No. Buyers are responsible for any customs duties, VAT, GST, or import taxes required by their country.'],
+      ['Do you offer wholesale pricing?', 'Yes. We welcome wholesale and bulk manufacturing inquiries.'],
+    ].map(([question, answer]) => (
+      <section key={question} className="border-b border-[#d4cfc7] py-5">
+        <h3 className="mb-2 font-serif text-xl text-[#1a1a18]">{question}</h3>
+        <p>{answer}</p>
+      </section>
+    ))}
   </ContentPage>
 );
 const SizeGuide = () => (
@@ -60,7 +70,41 @@ const Maintenance = () => (
   </ContentPage>
 );
 const Safety   = () => <ContentPage title="Product Safety"><p>Our historical replicas are accurate and can be inherently dangerous. They are sold strictly for display, theatrical, or supervised sporting use only. LARP weapons should be checked for core damage or foam tears before every event.</p></ContentPage>;
-const Privacy  = () => <ContentPage title="Privacy Policy"><p>Zafex Enterprises respects your privacy. We do not sell your personal data to third parties. Secure payment information is handled directly by encrypted gateways (PayPal, Payoneer) and never stored on our servers.</p></ContentPage>;
+const Privacy  = () => (
+  <ContentPage title="Privacy Policy">
+    <p>At Zafex Collectibles, we respect your privacy and are committed to protecting your personal information.</p>
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Information We Collect</h3>
+    <p>We may collect:</p>
+    <ul>
+      <li>Name</li>
+      <li>Email address</li>
+      <li>Phone number</li>
+      <li>Billing and shipping address</li>
+      <li>Order details</li>
+      <li>Payment information (processed securely by third-party payment providers)</li>
+      <li>Website usage information through cookies</li>
+    </ul>
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">How We Use Your Information</h3>
+    <p>We use your information to:</p>
+    <ul>
+      <li>Process and fulfill orders</li>
+      <li>Provide customer support</li>
+      <li>Send shipping updates</li>
+      <li>Improve our website and services</li>
+      <li>Prevent fraud and unauthorized transactions</li>
+    </ul>
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Data Protection</h3>
+    <p>We implement appropriate security measures to protect your personal information from unauthorized access, misuse, or disclosure.</p>
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Third-Party Services</h3>
+    <p>We may use trusted third-party providers such as payment gateways, shipping companies, and analytics services to operate our business efficiently.</p>
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Cookies</h3>
+    <p>Our website uses cookies to improve user experience, remember preferences, and analyze website traffic.</p>
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Your Rights</h3>
+    <p>You may request access to, correction of, or deletion of your personal information by contacting us.</p>
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Contact</h3>
+    <p>If you have any questions regarding this Privacy Policy, please contact us using the information provided on our Contact page.</p>
+  </ContentPage>
+);
 const Shipping = () => <ContentPage title="Shipping Policy"><p>Worldwide shipping is available on all items. Please note that customs duties, import taxes, and clearance fees are the sole responsibility of the buyer. We are not responsible for delays caused by local customs authorities.</p></ContentPage>;
 const Refund   = () => <ContentPage title="Refund Policy"><p>We offer a 14-day return window for standard catalog items from the date of delivery. Items must be unused and in original packaging. Custom commissions are non-refundable once the forging process has commenced.</p></ContentPage>;
 const Terms    = () => <ContentPage title="Terms & Conditions"><p>By purchasing from Zafex Collectibles & Zafs, you agree that you are of legal age to purchase bladed replicas in your jurisdiction. The buyer assumes all responsibility for compliance with local laws regarding the import and ownership of swords, armour, and related items.</p></ContentPage>;
