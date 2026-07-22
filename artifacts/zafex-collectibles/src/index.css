@@ -155,3 +155,16 @@
     @apply font-serif;
   }
 }
+
+@keyframes new-arrivals-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 9px));
+  }
+}
+
+.new-arrivals-track {
+  animation: new-arrivals-scroll 36s linear infinite;
+}

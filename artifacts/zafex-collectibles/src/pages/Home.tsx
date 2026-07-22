@@ -89,7 +89,8 @@ function ParallaxBg({ src, className = '' }: { src: string; className?: string }
 /* ─── Home ────────────────────────────────────────────────────────────── */
 
 const Home = () => {
-  const newArrivals = PRODUCTS.filter((p) => p.badge === 'new').slice(0, 4);
+  const newArrivals = PRODUCTS.filter((p) => p.badge === 'new');
+  const scrollingArrivals = [...newArrivals, ...newArrivals];
 
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#f5f0e8]">
@@ -131,16 +132,20 @@ const Home = () => {
             </div>
             <Link
               href="/shop?badge=new"
-              className="font-serif text-[11px] uppercase tracking-[2px] text-[#1a1a18] border-b border-[#1a1a18] pb-0.5 hover:text-[#d4af37] hover:border-[#d4af37] transition-colors"
+              className="inline-flex shrink-0 items-center border-2 border-[#1a1a18] px-6 py-3 font-serif text-[11px] font-bold uppercase tracking-[2px] text-[#1a1a18] transition-colors hover:border-[#d4af37] hover:bg-[#d4af37] hover:text-[#1a1a18]"
             >
               VIEW ALL NEW →
             </Link>
           </Reveal>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-[18px]">
-            {newArrivals.map((product, i) => (
-              <ProductCard key={product.id} product={product} index={i} />
-            ))}
+          <div className="group/new-arrivals relative -mx-5 overflow-hidden">
+            <div className="new-arrivals-track flex w-max gap-[18px] px-5 group-hover/new-arrivals:[animation-play-state:paused]">
+              {scrollingArrivals.map((product, i) => (
+                <div key={`${product.id}-${i}`} className="w-[220px] shrink-0 sm:w-[270px] lg:w-[300px]">
+                  <ProductCard product={product} index={i % newArrivals.length} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
