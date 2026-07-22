@@ -273,25 +273,43 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ── ABOUT ── */}
-      <section className="py-[100px] bg-[#1a0d00] text-center px-4 relative overflow-hidden">
-        <div className="relative z-10">
+      {/* ── ABOUT ZAFEX ── */}
+      <section className="bg-[#f5f0e8] px-5 py-[90px] sm:px-10 lg:py-[120px]">
+        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
           <Reveal>
-            <span className="font-serif text-[11px] text-[#d4af37] tracking-[4px] uppercase block">OUR STORY</span>
-            <h2 className="font-script text-[72px] text-[#d4af37] leading-none mt-2">About Us</h2>
-            <div className="w-[80px] border-t border-[#d4af37] mx-auto my-6" />
-            <h3 className="font-serif text-[12px] text-[#f5f0e8]/70 tracking-[3px] uppercase mb-8">
-              EVERY PIECE TELLS A STORY OF CRAFT AND COURAGE
-            </h3>
-            <p className="font-sans text-[15px] text-[#f5f0e8]/80 max-w-[640px] mx-auto leading-[1.8] mb-8">
-              Welcome to Zafex Enterprises, home of the Zafex Collectibles & Zafs brand. Based in Meerut, India, we specialise in premium LARP weapons, historical armour replicas, medieval clothing, and collector's accessories.
+            <span className="font-serif text-[11px] font-semibold uppercase tracking-[3px] text-[#b58a16]">
+              THE ZAFEX LEGACY
+            </span>
+            <h2 className="mt-5 max-w-[620px] font-serif text-[40px] font-medium leading-[1.05] text-[#1a1208] sm:text-[52px]">
+              About Zafex Collectibles
+            </h2>
+            <p className="mt-8 max-w-[620px] font-sans text-[15px] leading-[1.75] text-[#5b554d]">
+              We are dedicated artisans specializing in the creation of authentic, heirloom-quality medieval armor, functional historical equipment, and unique collectibles. Every piece that leaves our workshop is meticulously handcrafted with respect for historical accuracy and an uncompromising commitment to quality.
+            </p>
+            <p className="mt-6 max-w-[620px] font-sans text-[15px] leading-[1.75] text-[#5b554d]">
+              From the resonant ring of our chainmail to the sturdy protection of our leather armor, we equip reenactors, theater productions, and history enthusiasts worldwide.
             </p>
             <Link
               href="/about"
-              className="inline-block border-2 border-[#d4af37] text-[#d4af37] font-serif uppercase text-[12px] font-bold tracking-[2px] py-[14px] px-[40px] hover:bg-[#d4af37] hover:text-[#1a0d00] transition-colors"
+              className="mt-8 inline-flex items-center border-b-2 border-[#1a1a18] pb-2 font-serif text-[12px] font-bold uppercase tracking-[2px] text-[#1a1a18] transition-colors hover:border-[#b58a16] hover:text-[#b58a16]"
             >
-              OUR HERITAGE
+              Learn More <span className="ml-2 text-[16px] leading-none">→</span>
             </Link>
+          </Reveal>
+
+          <Reveal delay={0.12} className="grid grid-cols-2 content-center gap-x-8 gap-y-12 sm:gap-x-12">
+            {[
+              ['1000+', 'Products Handcrafted'],
+              ['30+', 'Product Categories'],
+              ['25+', 'Countries Served'],
+              ['100%', 'Handmade Products'],
+              ['10+', 'Years of Experience'],
+            ].map(([value, label], index) => (
+              <div key={label} className={index === 4 ? 'col-span-2 justify-self-center text-center' : ''}>
+                <div className="font-serif text-[42px] font-semibold leading-none text-[#b58a16] sm:text-[50px]">{value}</div>
+                <div className="mt-3 font-sans text-[11px] font-bold uppercase tracking-[1.2px] text-[#29251f]">{label}</div>
+              </div>
+            ))}
           </Reveal>
         </div>
       </section>
