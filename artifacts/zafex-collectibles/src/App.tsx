@@ -16,6 +16,8 @@ import ProductDetail from '@/pages/ProductDetail';
 import About from '@/pages/About';
 import Contact from '@/pages/Contact';
 import CategoryPage from '@/pages/CategoryPage';
+import CustomForging from '@/pages/CustomForging';
+import Blog from '@/pages/Blog';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -129,7 +131,10 @@ function Router() {
           {/* ── Static info pages ── */}
           <Route path="/faqs" component={Faqs} />
           <Route path="/size-guide" component={SizeGuide} />
-          <Route path="/custom-forging" component={() => <CategoryPage categorySlug="custom-orders" />} />
+          <Route path="/blog" component={Blog} />
+          <Route path="/custom-forging" component={CustomForging} />
+          <Route path="/cat/custom-orders" component={CustomForging} />
+          <Route path="/cat/custom-orders/:sub" component={CustomForging} />
           <Route path="/product-maintenance" component={Maintenance} />
           <Route path="/product-safety" component={Safety} />
           <Route path="/privacy-policy" component={Privacy} />

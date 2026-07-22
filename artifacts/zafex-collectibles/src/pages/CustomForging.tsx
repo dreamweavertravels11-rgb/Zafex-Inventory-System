@@ -1,8 +1,42 @@
-import Layout from '@/components/layout/Layout';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import React from 'react';
+import { Link } from 'wouter';
+import { Mail, Phone, CheckCircle2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+
+const PRODUCTS_WE_CUSTOMIZE = [
+  'Chainmail Armor',
+  'Chainmail Shirts & Hauberks',
+  'Chainmail Coifs',
+  'Medieval Helmets',
+  'Viking Helmets',
+  'Leather Armor',
+  'Gambesons',
+  'Medieval Clothing',
+  'Leather Boots',
+  'Belts & Accessories',
+  'Shields',
+  'Swords Scabbards & Holders',
+  'LARP Equipment',
+  'Cosplay Costumes',
+  'Historical Reenactment Gear',
+];
+
+const REQUEST_CHECKLIST = [
+  'Product photos, sketches, or reference images',
+  'Required measurements or size chart',
+  'Material preference',
+  'Color requirements',
+  'Quantity required',
+  'Shipping destination',
+  'Any special customization details',
+];
+
+const WHAT_WE_PROVIDE = [
+  'Product quotation',
+  'Manufacturing timeline',
+  'Shipping options',
+  'Estimated delivery date',
+];
 
 export default function CustomForging() {
   const { toast } = useToast();
@@ -10,117 +44,204 @@ export default function CustomForging() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
-      title: "Commission Request Sent",
-      description: "Our master armorer will review your specifications and contact you shortly with a quote.",
+      title: 'Request Received',
+      description: "Our team will review your specifications and get back to you with a quote.",
     });
+    (e.target as HTMLFormElement).reset();
   };
 
   return (
-    <Layout>
-      <div className="bg-[hsl(var(--bg-deep))] py-20 border-b-4 border-primary relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-[url('/images/breastplates.png')] bg-center bg-no-repeat bg-contain opacity-10"></div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-4xl md:text-6xl font-serif font-bold text-white uppercase tracking-widest mb-6">
-            Custom Forging
-          </h1>
-          <p className="text-gray-400 font-sans max-w-2xl mx-auto text-lg">
-            Commission bespoke armor and weaponry tailored exactly to your measurements, specifications, and historical era.
-          </p>
-        </div>
-      </div>
+    <div className="bg-[#f5f0e8] min-h-screen">
 
-      <div className="container mx-auto px-4 py-20 max-w-6xl">
-        <div className="grid md:grid-cols-2 gap-16">
-          
-          {/* Info Side */}
+      {/* ── Hero ──────────────────────────────────────────────────────── */}
+      <section className="w-full bg-[#cec3b5] flex flex-col items-center justify-center text-center px-4 py-16">
+        <div className="font-sans text-[10px] uppercase tracking-[2.5px] text-[#5a4a30]/70 mb-6 flex items-center gap-2">
+          <Link href="/" className="hover:text-[#2a2016] transition-colors">HOME</Link>
+          <span className="text-[#5a4a30]/40">/</span>
+          <span className="text-[#2a2016]">CUSTOM ORDERS</span>
+        </div>
+        <h1 className="font-serif text-[48px] sm:text-[62px] font-light text-[#1a1208] uppercase leading-none tracking-[0.1em] mb-6">
+          Custom Orders
+        </h1>
+        <p className="font-serif text-[17px] sm:text-[20px] font-light text-[#5a4a30] italic max-w-2xl">
+          Handcrafted medieval products built exactly to your specifications
+        </p>
+      </section>
+
+      {/* ── Intro ─────────────────────────────────────────────────────── */}
+      <section className="max-w-[860px] mx-auto px-6 py-16 text-center">
+        <p className="font-sans text-[15px] sm:text-[16px] text-[#4a4a4a] leading-[1.9]">
+          At Zafex Collectibles, we specialize in manufacturing custom medieval products built according to your exact specifications. Whether you need a single bespoke piece or large-volume wholesale production, our artisans are ready to bring your vision to life.
+        </p>
+      </section>
+
+      {/* ── What We Can Customize ─────────────────────────────────────── */}
+      <section className="bg-[#e8e0d4] py-20">
+        <div className="max-w-[1100px] mx-auto px-6">
+          <div className="mb-10 text-center">
+            <span className="font-sans text-[10px] uppercase tracking-[3px] text-[#8b6914] block mb-3">BESPOKE MANUFACTURING</span>
+            <h2 className="font-serif text-[34px] sm:text-[40px] font-light text-[#1a1208] uppercase leading-none tracking-[0.06em]">
+              We Can Customize
+            </h2>
+            <div className="w-[40px] h-[2px] bg-[#8b6914] mt-5 mx-auto" />
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            {PRODUCTS_WE_CUSTOMIZE.map((item) => (
+              <div
+                key={item}
+                className="bg-[#f5f0e8] border border-[#d4cdc4] px-4 py-4 text-center font-sans text-[11px] uppercase tracking-[1px] text-[#2a2016] leading-snug hover:border-[#8b6914] hover:bg-[#ede9e3] transition-colors"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── How It Works ──────────────────────────────────────────────── */}
+      <section className="max-w-[1100px] mx-auto px-6 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+          {/* What to provide */}
           <div>
-            <h2 className="font-serif font-bold text-3xl tracking-widest uppercase mb-8 text-primary border-b border-border pb-4">The Commission Process</h2>
-            
-            <div className="space-y-12">
-              <div className="relative pl-8 border-l-2 border-muted">
-                <div className="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-1"></div>
-                <h3 className="font-serif font-bold text-xl uppercase tracking-widest mb-3">1. Consultation</h3>
-                <p className="text-muted-foreground leading-relaxed">Submit your concept, reference images, and requirements. Our armorers will discuss the historical accuracy, materials, and structural feasibility of your piece.</p>
-              </div>
-
-              <div className="relative pl-8 border-l-2 border-muted">
-                <div className="absolute w-4 h-4 bg-secondary rounded-full -left-[9px] top-1"></div>
-                <h3 className="font-serif font-bold text-xl uppercase tracking-widest mb-3">2. Measurement & Blueprinting</h3>
-                <p className="text-muted-foreground leading-relaxed">We will provide you with a detailed measurement chart. Precision is paramount; we design the blueprint around your unique physiology and intended padding.</p>
-              </div>
-
-              <div className="relative pl-8 border-l-2 border-muted">
-                <div className="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-1"></div>
-                <h3 className="font-serif font-bold text-xl uppercase tracking-widest mb-3">3. The Forge</h3>
-                <p className="text-muted-foreground leading-relaxed">With a 50% deposit secured, the steel is cut, shaped, fluted, and articulated. We provide progress photos during key milestones.</p>
-              </div>
-
-              <div className="relative pl-8 border-l-2 border-transparent">
-                <div className="absolute w-4 h-4 bg-secondary rounded-full -left-[9px] top-1"></div>
-                <h3 className="font-serif font-bold text-xl uppercase tracking-widest mb-3">4. Final Polish & Dispatch</h3>
-                <p className="text-muted-foreground leading-relaxed">The final strapping, riveting, and polishing occurs. Upon your approval of the finished photos and receipt of the final payment, your armor is carefully crated and shipped globally.</p>
-              </div>
+            <div className="mb-8">
+              <span className="font-sans text-[10px] uppercase tracking-[3px] text-[#8b6914] block mb-3">WHAT YOU SEND US</span>
+              <h2 className="font-serif text-[30px] sm:text-[36px] font-light text-[#1a1208] uppercase leading-none tracking-[0.06em]">
+                To Request a Custom Order
+              </h2>
+              <div className="w-[40px] h-[2px] bg-[#8b6914] mt-5" />
             </div>
-
-            <div className="mt-12 p-6 bg-card border border-border">
-              <h4 className="font-serif font-bold uppercase tracking-widest mb-2 text-sm">Typical Timelines</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• Single pieces (Helmets, Gauntlets): 3 - 6 weeks</li>
-                <li>• Partial Sets (Cuirass, Arms/Legs): 6 - 10 weeks</li>
-                <li>• Full Plate Harnesses: 12 - 16+ weeks</li>
-              </ul>
-            </div>
+            <p className="font-sans text-[14px] text-[#4a4a4a] leading-[1.9] mb-6">
+              Please provide the following so we can prepare an accurate quotation:
+            </p>
+            <ul className="space-y-3">
+              {REQUEST_CHECKLIST.map((item) => (
+                <li key={item} className="flex items-start gap-3 font-sans text-[14px] text-[#4a4a4a] leading-relaxed">
+                  <CheckCircle2 size={16} className="text-[#8b6914] flex-shrink-0 mt-[3px]" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Form Side */}
-          <div className="bg-card p-8 md:p-10 border border-border shadow-lg">
-            <h2 className="font-serif font-bold text-2xl tracking-widest uppercase mb-8 border-b border-border pb-4">Start Your Commission</h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="font-serif text-xs font-bold tracking-widest uppercase text-muted-foreground">First Name</label>
-                  <Input required className="bg-background rounded-none border-border" />
-                </div>
-                <div className="space-y-2">
-                  <label className="font-serif text-xs font-bold tracking-widest uppercase text-muted-foreground">Last Name</label>
-                  <Input required className="bg-background rounded-none border-border" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="font-serif text-xs font-bold tracking-widest uppercase text-muted-foreground">Email Address</label>
-                <Input type="email" required className="bg-background rounded-none border-border" />
-              </div>
-              <div className="space-y-2">
-                <label className="font-serif text-xs font-bold tracking-widest uppercase text-muted-foreground">Project Type</label>
-                <select className="flex h-10 w-full bg-background border border-border px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 rounded-none">
-                  <option>Full Armor Set</option>
-                  <option>Individual Armor Piece</option>
-                  <option>Custom Weapon</option>
-                  <option>Leatherwork / Gambeson</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div className="space-y-2">
-                <label className="font-serif text-xs font-bold tracking-widest uppercase text-muted-foreground">Intended Use</label>
-                <select className="flex h-10 w-full bg-background border border-border px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 rounded-none">
-                  <option>Display / Collector</option>
-                  <option>Cosplay / Theatrical</option>
-                  <option>LARP (Light Combat)</option>
-                  <option>HEMA / Buhurt (Heavy Combat)</option>
-                </select>
-              </div>
-              <div className="space-y-2">
-                <label className="font-serif text-xs font-bold tracking-widest uppercase text-muted-foreground">Detailed Description & Historical Period</label>
-                <Textarea required placeholder="Please describe what you are looking for in as much detail as possible..." className="min-h-[150px] bg-background rounded-none border-border resize-none" />
-              </div>
-              <Button type="submit" className="w-full rounded-none font-serif font-bold tracking-widest uppercase py-6 text-white hover:bg-primary/90 transition-colors">
-                Submit Request
-              </Button>
-            </form>
+          {/* What we provide */}
+          <div>
+            <div className="mb-8">
+              <span className="font-sans text-[10px] uppercase tracking-[3px] text-[#8b6914] block mb-3">OUR RESPONSE</span>
+              <h2 className="font-serif text-[30px] sm:text-[36px] font-light text-[#1a1208] uppercase leading-none tracking-[0.06em]">
+                What We Provide
+              </h2>
+              <div className="w-[40px] h-[2px] bg-[#8b6914] mt-5" />
+            </div>
+            <p className="font-sans text-[14px] text-[#4a4a4a] leading-[1.9] mb-6">
+              Once we receive your request, our team will review the specifications and provide:
+            </p>
+            <ul className="space-y-3 mb-8">
+              {WHAT_WE_PROVIDE.map((item) => (
+                <li key={item} className="flex items-start gap-3 font-sans text-[14px] text-[#4a4a4a] leading-relaxed">
+                  <CheckCircle2 size={16} className="text-[#8b6914] flex-shrink-0 mt-[3px]" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="font-sans text-[14px] text-[#4a4a4a] leading-[1.9] italic border-l-2 border-[#8b6914] pl-5">
+              We welcome both individual custom orders and bulk wholesale manufacturing.
+            </p>
           </div>
-          
         </div>
-      </div>
-    </Layout>
+      </section>
+
+      {/* ── Contact + Request Form ─────────────────────────────────────── */}
+      <section className="bg-[#1a1208] py-20">
+        <div className="max-w-[1100px] mx-auto px-6">
+          <div className="text-center mb-14">
+            <span className="font-sans text-[10px] uppercase tracking-[3px] text-[#8b6914] block mb-3">GET IN TOUCH</span>
+            <h2 className="font-serif text-[36px] sm:text-[44px] font-light text-white uppercase leading-none tracking-[0.08em]">
+              Contact for Custom Orders
+            </h2>
+            <div className="w-[40px] h-[1px] bg-[#8b6914] mx-auto mt-5" />
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+            {/* Contact details */}
+            <div>
+              <p className="font-serif text-[20px] font-light text-[#d4af37] mb-8">Zafex Collectibles</p>
+              <div className="space-y-5">
+                <div className="flex items-center gap-4">
+                  <Mail size={18} className="text-[#8b6914] flex-shrink-0" strokeWidth={1.5} />
+                  <div>
+                    <p className="font-sans text-[10px] uppercase tracking-[2px] text-[#8b6914] mb-1">Email</p>
+                    <a href="mailto:zafexcollectibles@gmail.com" className="font-sans text-[14px] text-[#c8bdb0] hover:text-white transition-colors">
+                      zafexcollectibles@gmail.com
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Phone size={18} className="text-[#8b6914] flex-shrink-0" strokeWidth={1.5} />
+                  <div>
+                    <p className="font-sans text-[10px] uppercase tracking-[2px] text-[#8b6914] mb-1">Phone / WhatsApp</p>
+                    <a href="tel:+918273506540" className="font-sans text-[14px] text-[#c8bdb0] hover:text-white transition-colors">
+                      +91-8273506540
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-10 flex flex-col sm:flex-row gap-4">
+                <a
+                  href="mailto:zafexcollectibles@gmail.com"
+                  className="inline-flex items-center justify-center gap-2 bg-[#d4af37] text-[#1a1208] font-sans text-[11px] uppercase tracking-[2px] px-8 py-4 hover:bg-white transition-colors font-semibold"
+                >
+                  <Mail size={14} />
+                  EMAIL US
+                </a>
+                <a
+                  href="https://wa.me/918273506540"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 border border-[#d4af37] text-[#d4af37] font-sans text-[11px] uppercase tracking-[2px] px-8 py-4 hover:bg-[#d4af37] hover:text-[#1a1208] transition-colors"
+                >
+                  <Phone size={14} />
+                  WHATSAPP
+                </a>
+              </div>
+            </div>
+
+            {/* Quick enquiry form */}
+            <div className="bg-[#2a1a08] border border-[#3a2a18] p-8">
+              <h3 className="font-serif text-[20px] font-light text-white uppercase tracking-[0.06em] mb-6 pb-4 border-b border-[#3a2a18]">
+                Quick Enquiry
+              </h3>
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="font-sans text-[10px] uppercase tracking-[1.5px] text-[#8b6914] block mb-2">Name</label>
+                    <input required type="text" className="w-full h-[44px] bg-[#1a1208] border border-[#3a2a18] px-4 font-sans text-[13px] text-white focus:outline-none focus:border-[#8b6914] transition-colors" />
+                  </div>
+                  <div>
+                    <label className="font-sans text-[10px] uppercase tracking-[1.5px] text-[#8b6914] block mb-2">Email</label>
+                    <input required type="email" className="w-full h-[44px] bg-[#1a1208] border border-[#3a2a18] px-4 font-sans text-[13px] text-white focus:outline-none focus:border-[#8b6914] transition-colors" />
+                  </div>
+                </div>
+                <div>
+                  <label className="font-sans text-[10px] uppercase tracking-[1.5px] text-[#8b6914] block mb-2">Product Type</label>
+                  <input required type="text" placeholder="e.g. Chainmail Hauberk, Viking Helmet…" className="w-full h-[44px] bg-[#1a1208] border border-[#3a2a18] px-4 font-sans text-[13px] text-white placeholder:text-white/30 focus:outline-none focus:border-[#8b6914] transition-colors" />
+                </div>
+                <div>
+                  <label className="font-sans text-[10px] uppercase tracking-[1.5px] text-[#8b6914] block mb-2">Details & Requirements</label>
+                  <textarea required rows={4} placeholder="Describe your requirements, measurements, material preferences, quantity…" className="w-full bg-[#1a1208] border border-[#3a2a18] p-4 font-sans text-[13px] text-white placeholder:text-white/30 focus:outline-none focus:border-[#8b6914] transition-colors resize-none" />
+                </div>
+                <button type="submit" className="w-full h-[48px] bg-[#8b6914] text-white font-sans text-[11px] uppercase tracking-[2px] hover:bg-[#d4af37] hover:text-[#1a1208] transition-colors font-semibold">
+                  SEND ENQUIRY
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
   );
 }
