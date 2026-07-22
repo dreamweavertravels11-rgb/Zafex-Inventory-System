@@ -18,6 +18,7 @@ import Contact from '@/pages/Contact';
 import CategoryPage from '@/pages/CategoryPage';
 import CustomForging from '@/pages/CustomForging';
 import Blog from '@/pages/Blog';
+import Resources from '@/pages/Resources';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -106,8 +107,43 @@ const Privacy  = () => (
   </ContentPage>
 );
 const Shipping = () => <ContentPage title="Shipping Policy"><p>Worldwide shipping is available on all items. Please note that customs duties, import taxes, and clearance fees are the sole responsibility of the buyer. We are not responsible for delays caused by local customs authorities.</p></ContentPage>;
-const Refund   = () => <ContentPage title="Refund Policy"><p>We offer a 14-day return window for standard catalog items from the date of delivery. Items must be unused and in original packaging. Custom commissions are non-refundable once the forging process has commenced.</p></ContentPage>;
+const Refund = () => (
+  <ContentPage title="Return & Refund Policy">
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Returns</h3>
+    <p>At Zafex Collectibles, customer satisfaction is our priority. If you are not completely satisfied with your purchase, you may request a return under the following conditions.</p>
+    <p className="mt-4">Eligible returns must be requested within 30 days of receiving your order.</p>
+    <p className="mt-4">Items must be:</p>
+    <ul>
+      <li>Unused and in their original condition.</li>
+      <li>Returned with original packaging whenever possible.</li>
+      <li>Free from damage caused by misuse, alteration, or improper handling.</li>
+    </ul>
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Non-Returnable Items</h3>
+    <p>The following items cannot be returned unless they arrive damaged or defective:</p>
+    <ul>
+      <li>Custom-made products</li>
+      <li>Personalized items</li>
+      <li>Made-to-order products</li>
+      <li>Clearance or final sale items</li>
+    </ul>
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Damaged or Incorrect Orders</h3>
+    <p>If your order arrives damaged, defective, or you receive the wrong item, please contact us within 7 days of delivery. Include your order number and clear photographs of the item and packaging so we can resolve the issue promptly.</p>
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Refunds</h3>
+    <p>Once your returned item has been received and inspected, we will notify you regarding the approval of your refund.</p>
+    <p className="mt-4">Approved refunds will be issued to the original payment method within 5–10 business days, depending on your payment provider.</p>
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Return Shipping</h3>
+    <p>If the return is due to our error, we will cover the return shipping costs.</p>
+    <p className="mt-4">For all other returns, customers are responsible for return shipping charges.</p>
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Contact</h3>
+    <p>For return assistance, please contact our customer support team.</p>
+    <p className="mt-4">Email: <a className="text-[#8b6914] hover:underline" href="mailto:zafexcollectibles@gmail.com">zafexcollectibles@gmail.com</a><br />Phone / WhatsApp: <a className="text-[#8b6914] hover:underline" href="tel:+918273506540">+91-8273506540</a></p>
+  </ContentPage>
+);
 const Terms    = () => <ContentPage title="Terms & Conditions"><p>By purchasing from Zafex Collectibles & Zafs, you agree that you are of legal age to purchase bladed replicas in your jurisdiction. The buyer assumes all responsibility for compliance with local laws regarding the import and ownership of swords, armour, and related items.</p></ContentPage>;
+const BuyingGuides = () => <ContentPage title="Buying Guides"><p>Explore our buying guides for choosing the right armor, chainmail, clothing, and accessories for your collection, reenactment, or costume.</p></ContentPage>;
+const ChainmailGuide = () => <ContentPage title="Chainmail Size Guide"><p>For the best fit, measure around your chest, waist, shoulders, and arms while wearing the clothing you plan to wear underneath. Contact our team for help with custom measurements.</p></ContentPage>;
+const HelmetGuide = () => <ContentPage title="Helmet Size Guide"><p>Measure around your head at eyebrow level and choose the closest size. A small amount of room is recommended for comfort and a padded liner.</p></ContentPage>;
+const LeatherGuide = () => <ContentPage title="Leather Care Guide"><p>Keep leather goods dry, away from direct heat, and conditioned periodically with a suitable leather conditioner. Store them in a cool, ventilated place.</p></ContentPage>;
 
 const NotFound = () => (
   <div className="min-h-screen bg-[#f5f0e8] flex flex-col items-center justify-center text-center px-4">
@@ -157,6 +193,7 @@ function Router() {
           <Route path="/shop/:id" component={ProductDetail} />
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
+          <Route path="/resources" component={Resources} />
 
           {/* ── Named /cat/* overrides — MUST come before the generic :category catch-all ── */}
           <Route path="/cat/about-us" component={About} />
@@ -186,6 +223,10 @@ function Router() {
           <Route path="/shipping-policy" component={Shipping} />
           <Route path="/refund-policy" component={Refund} />
           <Route path="/terms-and-conditions" component={Terms} />
+          <Route path="/resources/buying-guides" component={BuyingGuides} />
+          <Route path="/resources/chainmail-size-guide" component={ChainmailGuide} />
+          <Route path="/resources/helmet-size-guide" component={HelmetGuide} />
+          <Route path="/resources/leather-care-guide" component={LeatherGuide} />
 
           <Route component={NotFound} />
         </Switch>
