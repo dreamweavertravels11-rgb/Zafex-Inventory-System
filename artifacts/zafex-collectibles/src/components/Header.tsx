@@ -114,6 +114,18 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
               })}
             </div>
           )}
+          {[
+            ['/cat/collections', 'Collections'],
+            ['/cat/custom-orders', 'Custom Orders'],
+            ['/cat/wholesale', 'Wholesale'],
+            ['/cat/about-us', 'About Us'],
+            ['/cat/resources', 'Resources'],
+            ['/contact', 'Contact Us'],
+          ].map(([href, label]) => (
+            <Link key={href} href={href} onClick={onClose} className="border-b border-[#ded7cc] px-5 py-4 font-sans text-[11px] font-medium uppercase tracking-[1.5px]">
+              {label}
+            </Link>
+          ))}
         </nav>
       </div>
     </div>
@@ -178,6 +190,18 @@ const Header = () => {
             </Link>
             <div onMouseEnter={openShop} onMouseLeave={closeShop}><ShopMegaMenu open={shopOpen} /></div>
           </div>
+          {[
+            ['/cat/collections', 'Collections'],
+            ['/cat/custom-orders', 'Custom Orders'],
+            ['/cat/wholesale', 'Wholesale'],
+            ['/cat/about-us', 'About Us'],
+            ['/cat/resources', 'Resources'],
+            ['/contact', 'Contact Us'],
+          ].map(([href, label]) => (
+            <Link key={href} href={href} className="flex items-center px-6 font-sans text-[10px] font-medium uppercase tracking-[1px] text-white transition-colors hover:bg-[#1d1d1a] hover:text-[#c6a767]">
+              {label}
+            </Link>
+          ))}
         </nav>
       </header>
     </>

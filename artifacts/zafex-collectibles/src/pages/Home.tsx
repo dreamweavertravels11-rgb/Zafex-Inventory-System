@@ -89,69 +89,9 @@ function ParallaxBg({ src, className = '' }: { src: string; className?: string }
 
 const Home = () => {
   const newArrivals = PRODUCTS.filter((p) => p.badge === 'new').slice(0, 4);
-  const heroRef = useRef<HTMLDivElement>(null);
-
-  // Subtle hero parallax on scroll
-  useEffect(() => {
-    const el = heroRef.current;
-    if (!el) return;
-    gsap.to(el, {
-      yPercent: 25,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: el.parentElement,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-      },
-    });
-  }, []);
 
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#f5f0e8]">
-
-      {/* ── HERO ── */}
-      <section className="relative w-full h-[100vh] bg-[#111] overflow-hidden flex items-center justify-center">
-        <div className="absolute inset-0 bg-[#000]/55 z-10" />
-        <div ref={heroRef} className="absolute inset-0 will-change-transform">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="/images/hero-video.mp4" type="video/mp4" />
-          </video>
-        </div>
-
-        <div className="relative z-20 flex flex-col items-center justify-center text-center px-4">
-          <h1 className="font-script text-[clamp(48px,8vw,96px)] text-[#d4af37] leading-none mb-0">
-            Zafex Collectibles
-          </h1>
-          <h2 className="font-script text-[clamp(32px,5vw,64px)] text-[#d4af37] leading-none mb-12 italic">
-            & Zafs
-          </h2>
-          <Link
-            href="/shop"
-            className="border-2 border-[#f5f0e8] text-white bg-transparent font-serif uppercase text-[14px] tracking-[3px] py-[14px] px-[44px] font-semibold hover:bg-white hover:text-[#1a1a18] transition-colors duration-300"
-          >
-            SHOP NOW
-          </Link>
-        </div>
-
-        <button className="absolute left-8 top-1/2 -translate-y-1/2 z-20 w-[40px] h-[40px] rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white/10 transition-colors">
-          <ChevronLeft size={24} />
-        </button>
-        <button className="absolute right-8 top-1/2 -translate-y-1/2 z-20 w-[40px] h-[40px] rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white/10 transition-colors">
-          <ChevronRight size={24} />
-        </button>
-
-        {/* Scroll cue */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 animate-bounce">
-          <div className="w-px h-10 bg-white/40" />
-        </div>
-      </section>
 
       {/* ── NEW ARRIVALS ── */}
       <section className="py-[80px] bg-[#f5f0e8]">
