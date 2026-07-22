@@ -155,6 +155,14 @@ const Header = () => {
     <>
       <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} />
       <header className="sticky top-0 z-50 w-full">
+        <div className="flex h-[34px] items-center overflow-hidden bg-[#a91f22] text-white">
+          <div className="flex min-w-max animate-[scroll-marquee_28s_linear_infinite] items-center font-sans text-[10px] font-semibold uppercase tracking-[2px]">
+            <span className="mx-8">Authentic quality guaranteed &nbsp; · &nbsp; Handcrafted in Meerut, India</span>
+            <span className="mx-8">Free shipping on orders above ₹5,000</span>
+            <span className="mx-8">Authentic quality guaranteed &nbsp; · &nbsp; Handcrafted in Meerut, India</span>
+            <span className="mx-8">Free shipping on orders above ₹5,000</span>
+          </div>
+        </div>
         <div className="flex h-[30px] items-center justify-center gap-5 overflow-hidden bg-[#080808] px-3 font-sans text-[9px] uppercase tracking-[1px] text-[#e9dfc9] sm:justify-between sm:px-16">
           <span>▣ &nbsp; Free worldwide shipping on orders over $199</span>
           <span className="hidden sm:inline">⚒ &nbsp; Custom orders welcome</span>
