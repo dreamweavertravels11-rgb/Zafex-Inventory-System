@@ -6,6 +6,7 @@ import ProductCard from '@/components/ProductCard';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import heroImage from '@assets/image_1784752327278.png';
+import heroImageTwo from '@assets/image_1784754891619.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -91,17 +92,31 @@ function ParallaxBg({ src, className = '' }: { src: string; className?: string }
 const Home = () => {
   const newArrivals = PRODUCTS.filter((p) => p.badge === 'new');
   const scrollingArrivals = [...newArrivals, ...newArrivals];
+  const [heroIndex, setHeroIndex] = useState(0);
+  const heroImages = [heroImage, heroImageTwo];
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setHeroIndex((current) => (current + 1) % heroImages.length);
+    }, 6500);
+    return () => window.clearInterval(interval);
+  }, [heroImages.length]);
 
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#f5f0e8]">
 
       {/* ── HERO IMAGE ── */}
       <section className="relative flex min-h-[430px] w-full items-center overflow-hidden bg-[#111] sm:min-h-[540px] lg:min-h-[620px]">
-        <img
-          src={heroImage}
-          alt="Zafex medieval collectibles museum"
-          className="absolute inset-0 h-full w-full object-cover object-center"
-        />
+        {heroImages.map((image, index) => (
+          <img
+            key={image}
+            src={image}
+            alt="Zafex medieval collectibles museum"
+            className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-[1400ms] ${
+              heroIndex === index ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        ))}
         <div className="absolute inset-0 bg-gradient-to-r from-[#080b0d]/90 via-[#080b0d]/45 to-transparent" />
         <div className="relative z-10 max-w-[560px] px-8 py-20 sm:px-16 lg:px-24">
           <span className="font-serif text-[11px] uppercase tracking-[4px] text-[#d4af37]">THE ZAFEX COLLECTION</span>
@@ -117,6 +132,17 @@ const Home = () => {
           >
             Explore the collection →
           </Link>
+        </div>
+        <div className="absolute bottom-7 right-8 z-10 flex items-center gap-2 sm:right-16 lg:right-24">
+          {heroImages.map((image, index) => (
+            <button
+              key={image}
+              type="button"
+              aria-label={`Show hero image ${index + 1}`}
+              onClick={() => setHeroIndex(index)}
+              className={`h-1 transition-all duration-300 ${heroIndex === index ? 'w-10 bg-[#d4af37]' : 'w-5 bg-white/50 hover:bg-white'}`}
+            />
+          ))}
         </div>
       </section>
 
