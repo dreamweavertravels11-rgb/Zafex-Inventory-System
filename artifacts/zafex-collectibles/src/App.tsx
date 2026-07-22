@@ -114,9 +114,12 @@ function Router() {
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
 
-          {/* ── About Us — all sub-routes map to the About page ── */}
+          {/* ── Named /cat/* overrides — MUST come before the generic :category catch-all ── */}
           <Route path="/cat/about-us" component={About} />
           <Route path="/cat/about-us/:sub" component={About} />
+          <Route path="/cat/custom-orders" component={CustomForging} />
+          <Route path="/cat/custom-orders/:sub" component={CustomForging} />
+          <Route path="/cat/resources/medieval-blog" component={Blog} />
 
           {/* ── Dynamic category + subcategory routes ── */}
           <Route path="/cat/:category">
@@ -133,8 +136,6 @@ function Router() {
           <Route path="/size-guide" component={SizeGuide} />
           <Route path="/blog" component={Blog} />
           <Route path="/custom-forging" component={CustomForging} />
-          <Route path="/cat/custom-orders" component={CustomForging} />
-          <Route path="/cat/custom-orders/:sub" component={CustomForging} />
           <Route path="/product-maintenance" component={Maintenance} />
           <Route path="/product-safety" component={Safety} />
           <Route path="/privacy-policy" component={Privacy} />
