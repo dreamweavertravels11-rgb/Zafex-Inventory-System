@@ -112,6 +112,10 @@ function Router() {
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
 
+          {/* ── About Us — all sub-routes map to the About page ── */}
+          <Route path="/cat/about-us" component={About} />
+          <Route path="/cat/about-us/:sub" component={About} />
+
           {/* ── Dynamic category + subcategory routes ── */}
           <Route path="/cat/:category">
             {(params) => <CategoryPage categorySlug={params.category} />}
