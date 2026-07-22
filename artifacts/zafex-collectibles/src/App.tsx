@@ -106,7 +106,54 @@ const Privacy  = () => (
     <p>If you have any questions regarding this Privacy Policy, please contact us using the information provided on our Contact page.</p>
   </ContentPage>
 );
-const Shipping = () => <ContentPage title="Shipping Policy"><p>Worldwide shipping is available on all items. Please note that customs duties, import taxes, and clearance fees are the sole responsibility of the buyer. We are not responsible for delays caused by local customs authorities.</p></ContentPage>;
+const Shipping = () => (
+  <ContentPage title="Shipping Policy">
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Processing Time</h3>
+    <ul>
+      <li><strong>Ready-to-Ship Products:</strong> 2–5 business days</li>
+      <li><strong>Handmade Products:</strong> 3–7 business days</li>
+      <li><strong>Custom Orders:</strong> 7–21 business days (depending on complexity)</li>
+    </ul>
+
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Shipping Partners</h3>
+    <ul>
+      <li>FedEx</li>
+      <li>DHL Express</li>
+      <li>UPS</li>
+      <li>USPS</li>
+      <li>India Post (where available)</li>
+    </ul>
+
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Estimated Delivery Time</h3>
+    <h4 className="mt-6 mb-3 font-serif text-lg text-[#1a1a18]">Express Shipping</h4>
+    <ul>
+      <li><strong>USA &amp; Canada:</strong> 4–8 business days</li>
+      <li><strong>Europe:</strong> 4–10 business days</li>
+      <li><strong>Australia &amp; New Zealand:</strong> 5–12 business days</li>
+      <li><strong>Rest of the World:</strong> 5–15 business days</li>
+    </ul>
+    <h4 className="mt-6 mb-3 font-serif text-lg text-[#1a1a18]">Standard Shipping</h4>
+    <ul>
+      <li><strong>USA &amp; Canada:</strong> 10–15 business days</li>
+      <li><strong>Europe:</strong> 8–14 business days</li>
+      <li><strong>Australia &amp; New Zealand:</strong> 10–18 business days</li>
+      <li><strong>Rest of the World:</strong> 10–20 business days</li>
+    </ul>
+
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Customs &amp; Import Taxes</h3>
+    <p>International buyers are responsible for any customs duties, VAT, GST, import taxes, brokerage fees, or other charges imposed by their country's customs authorities.</p>
+
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Order Tracking</h3>
+    <p>A tracking number will be provided via email once your order has been dispatched.</p>
+
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Shipping Support</h3>
+    <p>For any shipping-related questions, please contact us.</p>
+    <p className="mt-4">
+      Email: <a className="text-[#8b6914] hover:underline" href="mailto:zafexcollectibles@gmail.com">zafexcollectibles@gmail.com</a><br />
+      Phone / WhatsApp: <a className="text-[#8b6914] hover:underline" href="tel:+918273506540">+91-8273506540</a>
+    </p>
+  </ContentPage>
+);
 const Refund = () => (
   <ContentPage title="Return & Refund Policy">
     <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Returns</h3>
