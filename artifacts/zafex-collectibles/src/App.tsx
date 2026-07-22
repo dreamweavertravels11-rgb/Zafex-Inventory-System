@@ -15,10 +15,11 @@ import Shop from '@/pages/Shop';
 import ProductDetail from '@/pages/ProductDetail';
 import About from '@/pages/About';
 import Contact from '@/pages/Contact';
+import CategoryPage from '@/pages/CategoryPage';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Simple content page wrapper
+/* ── Simple content wrapper ─────────────────────────────────────────── */
 function ContentPage({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-[#f5f0e8] flex flex-col">
@@ -34,6 +35,7 @@ function ContentPage({ title, children }: { title: string; children: React.React
   );
 }
 
+/* ── Static policy / info pages ─────────────────────────────────────── */
 const Faqs = () => (
   <ContentPage title="FAQs">
     <h3 className="font-serif text-xl text-[#1a1a18] mt-8 mb-4">How long does shipping take?</h3>
@@ -42,14 +44,24 @@ const Faqs = () => (
     <p>Our steel weapons are high carbon steel but are sold primarily for display and light reenactment unless specified as "battle-ready" (thick edges, rounded tips). Our LARP weapons are completely safe for full-contact foam fighting.</p>
   </ContentPage>
 );
-const SizeGuide = () => <ContentPage title="Size Guide"><p>Detailed sizing charts for standard apparel coming soon. For custom armour commissions, our artisan team will provide a specific measurement template requiring over 15 points of measure to ensure a perfect fit.</p></ContentPage>;
-const CustomForging = () => <ContentPage title="Custom Forging"><p>Looking for a specific piece of history or fantasy? We accept custom commissions for armour, weaponry, and leather goods. Please contact us with reference images and specifications for a quote.</p></ContentPage>;
-const Maintenance = () => <ContentPage title="Care & Maintenance"><h3 className="font-serif text-xl text-[#1a1a18] mt-8 mb-4">Steel Armour & Weapons</h3><p>Always oil your carbon steel pieces after use or handling to prevent rust. Renaissance wax or mineral oil works best. Store in a dry, climate-controlled environment.</p><h3 className="font-serif text-xl text-[#1a1a18] mt-8 mb-4">Leather Goods</h3><p>Do not leave leather in direct sunlight or extreme heat. Treat periodically with a high-quality leather conditioner or mink oil.</p></ContentPage>;
-const Safety = () => <ContentPage title="Product Safety"><p>Our historical replicas are accurate and can be inherently dangerous. They are sold strictly for display, theatrical, or supervised sporting use only. LARP weapons should be checked for core damage or foam tears before every event.</p></ContentPage>;
-const Privacy = () => <ContentPage title="Privacy Policy"><p>Zafex Enterprises respects your privacy. We do not sell your personal data to third parties. Secure payment information is handled directly by encrypted gateways (PayPal, Payoneer) and never stored on our servers.</p></ContentPage>;
+const SizeGuide = () => (
+  <ContentPage title="Size Guide">
+    <p>Detailed sizing charts for standard apparel coming soon. For custom armour commissions, our artisan team will provide a specific measurement template requiring over 15 points of measure to ensure a perfect fit.</p>
+  </ContentPage>
+);
+const Maintenance = () => (
+  <ContentPage title="Care & Maintenance">
+    <h3 className="font-serif text-xl text-[#1a1a18] mt-8 mb-4">Steel Armour & Weapons</h3>
+    <p>Always oil your carbon steel pieces after use or handling to prevent rust. Renaissance wax or mineral oil works best. Store in a dry, climate-controlled environment.</p>
+    <h3 className="font-serif text-xl text-[#1a1a18] mt-8 mb-4">Leather Goods</h3>
+    <p>Do not leave leather in direct sunlight or extreme heat. Treat periodically with a high-quality leather conditioner or mink oil.</p>
+  </ContentPage>
+);
+const Safety   = () => <ContentPage title="Product Safety"><p>Our historical replicas are accurate and can be inherently dangerous. They are sold strictly for display, theatrical, or supervised sporting use only. LARP weapons should be checked for core damage or foam tears before every event.</p></ContentPage>;
+const Privacy  = () => <ContentPage title="Privacy Policy"><p>Zafex Enterprises respects your privacy. We do not sell your personal data to third parties. Secure payment information is handled directly by encrypted gateways (PayPal, Payoneer) and never stored on our servers.</p></ContentPage>;
 const Shipping = () => <ContentPage title="Shipping Policy"><p>Worldwide shipping is available on all items. Please note that customs duties, import taxes, and clearance fees are the sole responsibility of the buyer. We are not responsible for delays caused by local customs authorities.</p></ContentPage>;
-const Refund = () => <ContentPage title="Refund Policy"><p>We offer a 14-day return window for standard catalog items from the date of delivery. Items must be unused and in original packaging. Custom commissions are non-refundable once the forging process has commenced.</p></ContentPage>;
-const Terms = () => <ContentPage title="Terms & Conditions"><p>By purchasing from Zafex Collectibles & Zafs, you agree that you are of legal age to purchase bladed replicas in your jurisdiction. The buyer assumes all responsibility for compliance with local laws regarding the import and ownership of swords, armour, and related items.</p></ContentPage>;
+const Refund   = () => <ContentPage title="Refund Policy"><p>We offer a 14-day return window for standard catalog items from the date of delivery. Items must be unused and in original packaging. Custom commissions are non-refundable once the forging process has commenced.</p></ContentPage>;
+const Terms    = () => <ContentPage title="Terms & Conditions"><p>By purchasing from Zafex Collectibles & Zafs, you agree that you are of legal age to purchase bladed replicas in your jurisdiction. The buyer assumes all responsibility for compliance with local laws regarding the import and ownership of swords, armour, and related items.</p></ContentPage>;
 
 const NotFound = () => (
   <div className="min-h-screen bg-[#f5f0e8] flex flex-col items-center justify-center text-center px-4">
@@ -93,20 +105,34 @@ function Router() {
       <Header />
       <main className="flex-1">
         <Switch>
+          {/* ── Core pages ── */}
           <Route path="/" component={Home} />
           <Route path="/shop" component={Shop} />
           <Route path="/shop/:id" component={ProductDetail} />
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
+
+          {/* ── Dynamic category + subcategory routes ── */}
+          <Route path="/cat/:category">
+            {(params) => <CategoryPage categorySlug={params.category} />}
+          </Route>
+          <Route path="/cat/:category/:sub">
+            {(params) => (
+              <CategoryPage categorySlug={params.category} subSlug={params.sub} />
+            )}
+          </Route>
+
+          {/* ── Static info pages ── */}
           <Route path="/faqs" component={Faqs} />
           <Route path="/size-guide" component={SizeGuide} />
-          <Route path="/custom-forging" component={CustomForging} />
+          <Route path="/custom-forging" component={() => <CategoryPage categorySlug="custom-orders" />} />
           <Route path="/product-maintenance" component={Maintenance} />
           <Route path="/product-safety" component={Safety} />
           <Route path="/privacy-policy" component={Privacy} />
           <Route path="/shipping-policy" component={Shipping} />
           <Route path="/refund-policy" component={Refund} />
           <Route path="/terms-and-conditions" component={Terms} />
+
           <Route component={NotFound} />
         </Switch>
       </main>
