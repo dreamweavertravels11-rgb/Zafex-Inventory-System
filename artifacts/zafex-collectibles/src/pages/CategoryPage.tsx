@@ -17,7 +17,7 @@ const CategoryPage = ({ categorySlug, subSlug }: CategoryPageProps) => {
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#f5f0e8]">
       {/* ── Hero Banner ─────────────────────────────────────────── */}
-      <section className="w-full bg-[#cec3b5] flex flex-col items-center justify-center text-center px-4 py-14">
+      <section className="w-full bg-[#cec3b5] flex min-h-[190px] flex-col items-center justify-center text-center px-4 py-14 sm:min-h-[220px]">
         {/* breadcrumb */}
         <div className="font-sans text-[10px] uppercase tracking-[2.5px] text-[#5a4a30]/70 mb-6 flex items-center gap-2 flex-wrap justify-center">
           <Link href="/" className="hover:text-[#2a2016] transition-colors">
