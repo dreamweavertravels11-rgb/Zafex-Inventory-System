@@ -1,12 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
-import { Search, User, ShoppingBag, Menu, X, ChevronDown } from 'lucide-react';
+import { Search, User, ShoppingBag, Menu, X, ChevronDown, Globe } from 'lucide-react';
 import { NAV_CATEGORIES, type NavCategory } from '@/data/categories';
 
-/* ─── Dropdown panel ─────────────────────────────────────────────────── */
+/* ── Split 17 items into two rows (8 + 9) ─────────────────────────── */
+const ROW1 = NAV_CATEGORIES.slice(0, 8);  // Chainmail → Viking Collection
+const ROW2 = NAV_CATEGORIES.slice(8);     // Shields → Resources
+
+/* ─── Dropdown panel ─────────────────────────────────────────────── */
 function CategoryDropdown({ cat }: { cat: NavCategory }) {
   return (
-    <div className="absolute top-full left-1/2 -translate-x-1/2 bg-[#f0ebe3] border border-[#c8bfb0] shadow-lg z-50 min-w-[220px] py-2">
+    <div className="absolute top-full left-0 bg-[#f0ebe3] border border-[#c8bfb0] shadow-lg z-50 min-w-[220px] py-2">
       <div className="px-5 pt-1 pb-3 border-b border-[#d4cdc4] mb-1">
         <Link
           href={`/cat/${cat.slug}`}
@@ -28,7 +32,48 @@ function CategoryDropdown({ cat }: { cat: NavCategory }) {
   );
 }
 
-/* ─── Mobile drawer ──────────────────────────────────────────────────── */
+/* ─── Single nav item ────────────────────────────────────────────── */
+function NavItem({
+  cat,
+  active,
+  onEnter,
+  onLeave,
+  isOpen,
+}: {
+  cat: NavCategory;
+  active: boolean;
+  onEnter: (slug: string) => void;
+  onLeave: () => void;
+  isOpen: boolean;
+}) {
+  return (
+    <div
+      className="relative flex-shrink-0"
+      onMouseEnter={() => onEnter(cat.slug)}
+      onMouseLeave={onLeave}
+    >
+      <Link
+        href={`/cat/${cat.slug}`}
+        className={`flex items-center gap-[2px] font-sans text-[10px] font-medium uppercase tracking-[0.4px] px-[7px] py-[6px] whitespace-nowrap transition-colors border-b-2 ${
+          active
+            ? 'text-[#5a3e00] border-[#5a3e00]'
+            : 'text-[#2a2016] border-transparent hover:text-[#5a3e00]'
+        }`}
+      >
+        {cat.label}
+        <ChevronDown size={8} strokeWidth={2.5} className="opacity-50 mt-px flex-shrink-0" />
+      </Link>
+
+      {isOpen && (
+        <div onMouseEnter={() => onEnter(cat.slug)} onMouseLeave={onLeave}>
+          <CategoryDropdown cat={cat} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ─── Mobile drawer ─────────────────────────────────────────────── */
 function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [expanded, setExpanded] = useState<string | null>(null);
   if (!open) return null;
@@ -75,7 +120,7 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
   );
 }
 
-/* ─── Main Header ────────────────────────────────────────────────────── */
+/* ─── Main Header ───────────────────────────────────────────────── */
 const Header = () => {
   const [location] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -96,103 +141,152 @@ const Header = () => {
     timerRef.current = setTimeout(() => setActiveDropdown(null), 120);
   };
 
+  const navRows = (
+    <nav className="hidden lg:flex flex-col justify-center h-full">
+      {/* Row 1 */}
+      <div className="flex items-center">
+        {ROW1.map((cat) => (
+          <NavItem
+            key={cat.slug}
+            cat={cat}
+            active={location.startsWith(`/cat/${cat.slug}`)}
+            onEnter={handleMouseEnter}
+            onLeave={handleMouseLeave}
+            isOpen={activeDropdown === cat.slug}
+          />
+        ))}
+      </div>
+      {/* Row 2 */}
+      <div className="flex items-center">
+        {ROW2.map((cat) => (
+          <NavItem
+            key={cat.slug}
+            cat={cat}
+            active={location.startsWith(`/cat/${cat.slug}`)}
+            onEnter={handleMouseEnter}
+            onLeave={handleMouseLeave}
+            isOpen={activeDropdown === cat.slug}
+          />
+        ))}
+      </div>
+    </nav>
+  );
+
   return (
     <>
       <MobileDrawer open={mobileOpen} onClose={() => setMobileOpen(false)} />
 
-      <div className="sticky top-0 z-50 flex flex-col w-full">
+      <div className="sticky top-0 z-50 w-full">
 
-        {/* ── Announcement bar ─────────────────────────────────── */}
-        <div className="bg-[#9c1c1c] h-[36px] flex items-center justify-center overflow-hidden relative whitespace-nowrap">
-          <div className="animate-[scroll-marquee_25s_linear_infinite] flex items-center text-white font-sans text-[11px] uppercase tracking-[2px]">
+        {/* ── Announcement bar ───────────────────────────────── */}
+        <div className="bg-[#9c1c1c] h-[34px] flex items-center justify-center overflow-hidden whitespace-nowrap">
+          <div className="animate-[scroll-marquee_28s_linear_infinite] flex items-center text-white font-sans text-[11px] uppercase tracking-[2px]">
             <span className="mx-8">FREE SHIPPING ON ORDERS ABOVE ₹5,000 &nbsp;·&nbsp; AUTHENTIC QUALITY GUARANTEED &nbsp;·&nbsp; HANDCRAFTED IN MEERUT, INDIA</span>
             <span className="mx-8">FREE SHIPPING ON ORDERS ABOVE ₹5,000 &nbsp;·&nbsp; AUTHENTIC QUALITY GUARANTEED &nbsp;·&nbsp; HANDCRAFTED IN MEERUT, INDIA</span>
             <span className="mx-8">FREE SHIPPING ON ORDERS ABOVE ₹5,000 &nbsp;·&nbsp; AUTHENTIC QUALITY GUARANTEED &nbsp;·&nbsp; HANDCRAFTED IN MEERUT, INDIA</span>
           </div>
           <style>{`
             @keyframes scroll-marquee {
-              0% { transform: translateX(0%); }
+              0%   { transform: translateX(0%); }
               100% { transform: translateX(-33.333%); }
             }
           `}</style>
         </div>
 
-        {/* ── Row 1: Logo + Icons ──────────────────────────────── */}
-        <header className="h-[64px] bg-[#c8b89a] border-b border-[#b0a088] flex items-center justify-between px-6">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-[38px] h-[38px] border-2 border-[#2a2016] flex items-center justify-center">
-              <span className="font-serif font-bold text-[13px] text-[#2a2016] tracking-tight leading-none">ZC</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-serif font-bold text-[16px] text-[#2a2016] leading-tight tracking-wide group-hover:text-[#5a3e00] transition-colors">
-                ZAFEX COLLECTIBLES
-              </span>
-              <span className="font-sans text-[9px] text-[#5a4a30] tracking-[1.5px] uppercase">
-                BRAND: ZAFS · EST. MEERUT
-              </span>
-            </div>
-          </Link>
+        {/* ── Main header — CSS Grid: [logo] [nav rows] [icons] ── */}
+        {/*    Logo and icons each span both nav rows vertically    */}
+        <header
+          className="bg-[#c8b89a] border-b border-[#b0a088] px-5"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'auto 1fr auto',
+            gridTemplateRows: 'auto auto',
+            alignItems: 'center',
+          }}
+        >
+          {/* Logo — spans both rows */}
+          <div style={{ gridColumn: '1', gridRow: '1 / 3', alignSelf: 'center' }} className="pr-4">
+            <Link href="/" className="flex items-center gap-2.5 group py-3">
+              <div className="w-[36px] h-[36px] border-2 border-[#2a2016] flex items-center justify-center flex-shrink-0">
+                <span className="font-serif font-bold text-[12px] text-[#2a2016] leading-none">ZC</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="font-serif font-bold text-[15px] text-[#2a2016] leading-tight tracking-wide group-hover:text-[#5a3e00] transition-colors whitespace-nowrap">
+                  ZAFEX COLLECTIBLES
+                </span>
+                <span className="font-sans text-[8.5px] text-[#5a4a30] tracking-[1.5px] uppercase">
+                  BRAND: ZAFS · EST. MEERUT
+                </span>
+              </div>
+            </Link>
+          </div>
 
-          {/* Right Icons */}
-          <div className="flex items-center gap-5">
-            <button className="text-[#2a2016] hover:text-[#8b6914] transition-colors" aria-label="Search">
-              <Search size={19} strokeWidth={1.8} />
+          {/* Nav rows — desktop only, spans center column both rows */}
+          <div
+            style={{ gridColumn: '2', gridRow: '1 / 3', alignSelf: 'stretch' }}
+            className="hidden lg:flex flex-col justify-center"
+          >
+            {/* Row 1 */}
+            <div className="flex items-center">
+              {ROW1.map((cat) => (
+                <NavItem
+                  key={cat.slug}
+                  cat={cat}
+                  active={location.startsWith(`/cat/${cat.slug}`)}
+                  onEnter={handleMouseEnter}
+                  onLeave={handleMouseLeave}
+                  isOpen={activeDropdown === cat.slug}
+                />
+              ))}
+            </div>
+            {/* Row 2 */}
+            <div className="flex items-center">
+              {ROW2.map((cat) => (
+                <NavItem
+                  key={cat.slug}
+                  cat={cat}
+                  active={location.startsWith(`/cat/${cat.slug}`)}
+                  onEnter={handleMouseEnter}
+                  onLeave={handleMouseLeave}
+                  isOpen={activeDropdown === cat.slug}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Icons — spans both rows */}
+          <div
+            style={{ gridColumn: '3', gridRow: '1 / 3', alignSelf: 'center' }}
+            className="flex items-center gap-4 pl-4"
+          >
+            {/* Language — hidden on smaller desktops to save space */}
+            <button className="hidden xl:flex items-center gap-1.5 text-[#2a2016] hover:text-[#5a3e00] transition-colors whitespace-nowrap" aria-label="Language">
+              <Globe size={15} strokeWidth={1.8} />
+              <span className="font-sans text-[11px] tracking-[0.4px]">India / EN</span>
             </button>
-            <button className="hidden sm:block text-[#2a2016] hover:text-[#8b6914] transition-colors" aria-label="Account">
-              <User size={19} strokeWidth={1.8} />
+            <button className="text-[#2a2016] hover:text-[#5a3e00] transition-colors" aria-label="Account">
+              <User size={18} strokeWidth={1.8} />
             </button>
-            <button className="relative text-[#2a2016] hover:text-[#8b6914] transition-colors" aria-label="Cart">
-              <ShoppingBag size={19} strokeWidth={1.8} />
-              <span className="absolute -top-1.5 -right-1.5 bg-[#9c1c1c] text-white w-[15px] h-[15px] flex items-center justify-center rounded-full text-[8px] font-sans font-bold">
+            <button className="text-[#2a2016] hover:text-[#5a3e00] transition-colors" aria-label="Search">
+              <Search size={18} strokeWidth={1.8} />
+            </button>
+            <button className="relative text-[#2a2016] hover:text-[#5a3e00] transition-colors" aria-label="Cart">
+              <ShoppingBag size={18} strokeWidth={1.8} />
+              <span className="absolute -top-1.5 -right-1.5 bg-[#9c1c1c] text-white w-[14px] h-[14px] flex items-center justify-center rounded-full text-[8px] font-bold">
                 0
               </span>
             </button>
+            {/* Hamburger — mobile only */}
             <button
-              className="lg:hidden text-[#2a2016] hover:text-[#8b6914] transition-colors ml-1"
+              className="lg:hidden text-[#2a2016] hover:text-[#5a3e00] transition-colors"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
             >
-              <Menu size={21} strokeWidth={1.8} />
+              <Menu size={20} strokeWidth={1.8} />
             </button>
           </div>
         </header>
 
-        {/* ── Row 2: Category Nav ──────────────────────────────── */}
-        <nav
-          className="hidden lg:flex bg-[#b5a48c] border-b border-[#9e9080] overflow-x-auto"
-          style={{ scrollbarWidth: 'none' }}
-        >
-          {NAV_CATEGORIES.map((cat) => (
-            <div
-              key={cat.slug}
-              className="relative flex-shrink-0"
-              onMouseEnter={() => handleMouseEnter(cat.slug)}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Link
-                href={`/cat/${cat.slug}`}
-                className={`flex items-center gap-1 font-sans text-[11.5px] font-medium uppercase tracking-[0.8px] px-4 py-3 whitespace-nowrap transition-colors border-b-2 ${
-                  location.startsWith(`/cat/${cat.slug}`)
-                    ? 'text-[#5a3e00] border-[#5a3e00] bg-[#a89478]'
-                    : 'text-[#2a2016] border-transparent hover:text-[#5a3e00] hover:bg-[#a89478]'
-                }`}
-              >
-                {cat.label}
-                <ChevronDown size={11} strokeWidth={2} className="opacity-60 mt-px" />
-              </Link>
-
-              {activeDropdown === cat.slug && (
-                <div
-                  onMouseEnter={() => handleMouseEnter(cat.slug)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <CategoryDropdown cat={cat} />
-                </div>
-              )}
-            </div>
-          ))}
-        </nav>
       </div>
     </>
   );
