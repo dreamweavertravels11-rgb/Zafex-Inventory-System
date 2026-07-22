@@ -17,51 +17,32 @@ const CategoryPage = ({ categorySlug, subSlug }: CategoryPageProps) => {
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#f5f0e8]">
       {/* ── Hero Banner ─────────────────────────────────────────── */}
-      <section className="relative w-full h-[260px] bg-[#1a1a18] overflow-hidden flex flex-col items-center justify-center text-center px-4">
-        <div className="absolute inset-0 bg-[#000]/55 z-10" />
-        {/* decorative pattern overlay */}
-        <div
-          className="absolute inset-0 opacity-10 z-[5]"
-          style={{
-            backgroundImage:
-              'repeating-linear-gradient(45deg,#d4af37 0,#d4af37 1px,transparent 0,transparent 50%)',
-            backgroundSize: '20px 20px',
-          }}
-        />
-        <div className="relative z-20 flex flex-col items-center">
-          {/* breadcrumb */}
-          <div className="font-serif text-[10px] uppercase tracking-[2.5px] text-[#d4af37]/80 mb-4 flex items-center gap-2 flex-wrap justify-center">
-            <Link href="/" className="hover:text-[#d4af37] transition-colors text-white/60">
-              HOME
-            </Link>
-            <span className="text-white/30">/</span>
-            {sub ? (
-              <>
-                <Link
-                  href={`/cat/${categorySlug}`}
-                  className="hover:text-[#d4af37] transition-colors text-white/60"
-                >
-                  {parentLabel}
-                </Link>
-                <span className="text-white/30">/</span>
-                <span className="text-[#d4af37]">{sub.label.toUpperCase()}</span>
-              </>
-            ) : (
-              <span className="text-[#d4af37]">{parentLabel}</span>
-            )}
-          </div>
-
-          <h1 className="font-serif text-[44px] sm:text-[56px] font-bold text-white uppercase leading-none tracking-tight">
-            {pageTitle}
-          </h1>
-
-          {!sub && category && (
-            <p className="font-sans text-[13px] text-white/60 mt-4 max-w-md">
-              Browse our full range of {category.label.toLowerCase()} — handcrafted with historical
-              accuracy and premium materials.
-            </p>
+      <section className="w-full bg-[#cec3b5] flex flex-col items-center justify-center text-center px-4 py-14">
+        {/* breadcrumb */}
+        <div className="font-sans text-[10px] uppercase tracking-[2.5px] text-[#5a4a30]/70 mb-6 flex items-center gap-2 flex-wrap justify-center">
+          <Link href="/" className="hover:text-[#2a2016] transition-colors">
+            HOME
+          </Link>
+          <span className="text-[#5a4a30]/40">/</span>
+          {sub ? (
+            <>
+              <Link
+                href={`/cat/${categorySlug}`}
+                className="hover:text-[#2a2016] transition-colors"
+              >
+                {parentLabel.toUpperCase()}
+              </Link>
+              <span className="text-[#5a4a30]/40">/</span>
+              <span className="text-[#2a2016]">{sub.label.toUpperCase()}</span>
+            </>
+          ) : (
+            <span className="text-[#2a2016]">{parentLabel.toUpperCase()}</span>
           )}
         </div>
+
+        <h1 className="font-serif text-[48px] sm:text-[60px] font-light text-[#1a1208] uppercase leading-none tracking-[0.1em]">
+          {pageTitle}
+        </h1>
       </section>
 
       {/* ── Category-level: show subcategory tiles ──────────────── */}
@@ -72,14 +53,13 @@ const CategoryPage = ({ categorySlug, subSlug }: CategoryPageProps) => {
               <Link
                 key={s.slug}
                 href={`/cat/${category.slug}/${s.slug}`}
-                className="group relative bg-[#1a1a18] overflow-hidden flex flex-col items-center justify-center text-center px-4 py-10 border border-[#333] hover:border-[#d4af37] transition-colors duration-300"
+                className="group relative bg-[#e8e0d4] overflow-hidden flex flex-col items-center justify-center text-center px-4 py-10 border border-[#d4cdc4] hover:border-[#8b6914] transition-colors duration-300"
               >
-                {/* gold top accent */}
-                <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#d4af37] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                <span className="font-serif text-[13px] uppercase tracking-[1.5px] text-[#f5f0e8] group-hover:text-[#d4af37] transition-colors leading-snug">
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#8b6914] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                <span className="font-sans text-[11px] font-medium uppercase tracking-[1.5px] text-[#2a2016] group-hover:text-[#5a3e00] transition-colors leading-snug">
                   {s.label}
                 </span>
-                <span className="mt-4 font-serif text-[10px] uppercase tracking-[2px] text-[#d4af37]/60 group-hover:text-[#d4af37] transition-colors">
+                <span className="mt-3 font-sans text-[10px] uppercase tracking-[2px] text-[#8b6914]/60 group-hover:text-[#8b6914] transition-colors">
                   SHOP →
                 </span>
               </Link>
@@ -139,17 +119,17 @@ const CategoryPage = ({ categorySlug, subSlug }: CategoryPageProps) => {
       )}
 
       {/* ── Other categories ────────────────────────────────────── */}
-      <section className="w-full bg-[#1a1a18] py-12 mt-auto">
+      <section className="w-full bg-[#e8e0d4] border-t border-[#d4cdc4] py-10 mt-auto">
         <div className="max-w-[1280px] mx-auto px-6">
-          <p className="font-serif text-[10px] uppercase tracking-[3px] text-[#d4af37]/60 mb-6 text-center">
+          <p className="font-sans text-[10px] uppercase tracking-[3px] text-[#5a4a30]/60 mb-5 text-center">
             EXPLORE MORE CATEGORIES
           </p>
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="flex flex-wrap gap-2 justify-center">
             {NAV_CATEGORIES.filter((c) => c.slug !== categorySlug).map((c) => (
               <Link
                 key={c.slug}
                 href={`/cat/${c.slug}`}
-                className="font-serif text-[10px] uppercase tracking-[1.5px] text-[#f5f0e8]/60 hover:text-[#d4af37] transition-colors px-3 py-1 border border-transparent hover:border-[#d4af37]/30"
+                className="font-sans text-[10px] font-medium uppercase tracking-[1.5px] text-[#5a4a30] hover:text-[#2a2016] transition-colors px-3 py-1 border border-[#c8bfb0] hover:border-[#5a4a30]"
               >
                 {c.label}
               </Link>

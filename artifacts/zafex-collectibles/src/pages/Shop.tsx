@@ -316,33 +316,21 @@ const Shop = () => {
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#f5f0e8]">
       {/* Hero Banner */}
-      <section className="relative w-full h-[280px] bg-[#1a1a18] overflow-hidden flex flex-col items-center justify-center text-center px-4">
-        <div className="absolute inset-0 bg-[#000]/60 z-10" />
-        <img
-          src="/images/swords.png"
-          alt="Shop Hero"
-          className="absolute inset-0 w-full h-full object-cover opacity-50"
-          loading="eager"
-        />
-        <div className="relative z-20">
-          <div className="font-serif text-[11px] uppercase tracking-[2px] text-[#d4af37] mb-4 flex items-center justify-center gap-2">
-            <Link href="/" className="hover:text-white transition-colors">HOME</Link>
-            <span className="text-white/50">/</span>
-            <span className="text-white">
-              {selectedCats.length === 1
-                ? CATEGORIES.find((c) => c.cat === selectedCats[0])?.label
-                : 'SHOP'}
-            </span>
-          </div>
-          <h1 className="font-serif text-[56px] sm:text-[64px] font-bold text-white uppercase leading-none mb-4">
+      <section className="w-full bg-[#cec3b5] flex flex-col items-center justify-center text-center px-4 py-14">
+        <div className="font-sans text-[10px] uppercase tracking-[2.5px] text-[#5a4a30]/70 mb-6 flex items-center justify-center gap-2">
+          <Link href="/" className="hover:text-[#2a2016] transition-colors">HOME</Link>
+          <span className="text-[#5a4a30]/40">/</span>
+          <span className="text-[#2a2016]">
             {selectedCats.length === 1
               ? CATEGORIES.find((c) => c.cat === selectedCats[0])?.label?.toUpperCase()
-              : 'ALL PRODUCTS'}
-          </h1>
-          <p className="font-sans text-[14px] text-white/80">
-            Browse our complete collection of premium LARP gear & historical replicas
-          </p>
+              : 'SHOP'}
+          </span>
         </div>
+        <h1 className="font-serif text-[48px] sm:text-[60px] font-light text-[#1a1208] uppercase leading-none tracking-[0.1em]">
+          {selectedCats.length === 1
+            ? CATEGORIES.find((c) => c.cat === selectedCats[0])?.label?.toUpperCase()
+            : 'ALL PRODUCTS'}
+        </h1>
       </section>
 
       {/* Mobile filter toggle */}

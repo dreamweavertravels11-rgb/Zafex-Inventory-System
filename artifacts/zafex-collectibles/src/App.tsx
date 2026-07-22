@@ -23,10 +23,10 @@ gsap.registerPlugin(ScrollTrigger);
 function ContentPage({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-[#f5f0e8] flex flex-col">
-      <section className="relative w-full h-[240px] bg-[#1a1a18] flex flex-col items-center justify-center text-center px-4">
-        <div className="relative z-20">
-          <h1 className="font-serif text-[48px] font-bold text-white uppercase leading-none">{title}</h1>
-        </div>
+      <section className="w-full bg-[#cec3b5] flex flex-col items-center justify-center text-center px-4 py-14">
+        <h1 className="font-serif text-[48px] sm:text-[60px] font-light text-[#1a1208] uppercase leading-none tracking-[0.1em]">
+          {title}
+        </h1>
       </section>
       <div className="container mx-auto px-8 py-16 max-w-3xl">
         <div className="prose prose-stone font-sans text-[#4a4a4a] leading-relaxed">{children}</div>
