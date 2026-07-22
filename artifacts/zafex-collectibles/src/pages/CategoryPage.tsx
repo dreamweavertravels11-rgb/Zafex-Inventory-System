@@ -1,10 +1,63 @@
 import React from 'react';
 import { Link } from 'wouter';
 import { NAV_CATEGORIES } from '@/data/categories';
+import { ChevronDown, Grid2X2, LayoutGrid, List, SlidersHorizontal } from 'lucide-react';
 
 interface CategoryPageProps {
   categorySlug: string;
   subSlug?: string;
+}
+
+const filterNames = ['Availability', 'Price', 'Size', 'Color', 'Collection', 'Product Type'];
+
+function CategoryFilterSidebar() {
+  const [openFilter, setOpenFilter] = React.useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const filters = (
+    <div className="bg-[#f1ede5] px-7 py-7">
+      <div className="mb-7 flex items-center gap-4 border-b border-[#d2cbc0] pb-6">
+        <button aria-label="Grid view" className="text-[#1a1a18]"><Grid2X2 size={21} strokeWidth={1.5} /></button>
+        <button aria-label="Compact grid view" className="text-[#1a1a18]"><LayoutGrid size={21} strokeWidth={1.5} /></button>
+        <button aria-label="List view" className="text-[#777168] transition-colors hover:text-[#1a1a18]"><List size={23} strokeWidth={1.5} /></button>
+      </div>
+      <div className="space-y-0">
+        {filterNames.map((filter) => (
+          <div key={filter} className="border-b border-[#d2cbc0]">
+            <button
+              onClick={() => setOpenFilter(openFilter === filter ? null : filter)}
+              className="flex w-full items-center justify-between py-6 text-left font-sans text-[12px] uppercase tracking-[3px] text-[#29251f]"
+              aria-expanded={openFilter === filter}
+            >
+              {filter}
+              <ChevronDown size={16} strokeWidth={1.5} className={`transition-transform ${openFilter === filter ? 'rotate-180' : ''}`} />
+            </button>
+            {openFilter === filter && (
+              <div className="pb-5 font-sans text-[12px] leading-7 text-[#6b645b]">
+                <label className="flex cursor-pointer items-center gap-2"><input type="checkbox" className="accent-[#8b6914]" /> All {filter.toLowerCase()}</label>
+                <label className="flex cursor-pointer items-center gap-2"><input type="checkbox" className="accent-[#8b6914]" /> Featured selection</label>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      <button
+        onClick={() => setMobileOpen(!mobileOpen)}
+        className="mx-6 mb-4 flex items-center gap-2 border border-[#cfc7bb] bg-[#f1ede5] px-4 py-3 font-sans text-[11px] uppercase tracking-[2px] lg:hidden"
+      >
+        <SlidersHorizontal size={15} /> Filters
+      </button>
+      {mobileOpen && <div className="mx-6 mb-8 lg:hidden">{filters}</div>}
+      <aside className="hidden w-[250px] shrink-0 lg:block">
+        <div className="sticky top-4">{filters}</div>
+      </aside>
+    </>
+  );
 }
 
 const CategoryPage = ({ categorySlug, subSlug }: CategoryPageProps) => {
@@ -95,9 +148,12 @@ const CategoryPage = ({ categorySlug, subSlug }: CategoryPageProps) => {
         </h1>
       </section>
 
-      {/* ── Category-level: show subcategory tiles ──────────────── */}
-      {!sub && category && (
-        <section className="mx-auto w-full max-w-[1280px] px-6 py-20 sm:py-24">
+      <div className="mx-auto w-full max-w-[1440px] px-0 py-10 lg:flex lg:items-start lg:gap-8 lg:px-6 lg:py-16">
+        <CategoryFilterSidebar />
+        <main className="min-w-0 flex-1">
+          {/* ── Category-level: show subcategory tiles ──────────────── */}
+          {!sub && category && (
+            <section className="w-full px-6 py-6 sm:px-0 sm:py-4">
           <div className="mb-12 max-w-2xl">
             <p className="font-serif text-[11px] uppercase tracking-[3px] text-[#b58a16]">CURATED FOR YOU</p>
             <p className="mt-4 font-sans text-[15px] leading-relaxed text-[#625b51]">
@@ -124,12 +180,12 @@ const CategoryPage = ({ categorySlug, subSlug }: CategoryPageProps) => {
               </Link>
             ))}
           </div>
-        </section>
-      )}
+            </section>
+          )}
 
-      {/* ── Subcategory-level: product grid area ────────────────── */}
-      {sub && (
-        <section className="w-full max-w-[1280px] mx-auto px-6 py-16">
+          {/* ── Subcategory-level: product grid area ────────────────── */}
+          {sub && (
+            <section className="w-full px-6 py-6 sm:px-0 sm:py-4">
           {/* subcategory sibling links */}
           {category && (
             <div className="flex flex-wrap gap-2 mb-12">
@@ -174,8 +230,10 @@ const CategoryPage = ({ categorySlug, subSlug }: CategoryPageProps) => {
               </Link>
             </div>
           </div>
-        </section>
-      )}
+            </section>
+          )}
+        </main>
+      </div>
 
       {/* ── Other categories ────────────────────────────────────── */}
       <section className="w-full bg-[#e8e0d4] border-t border-[#d4cdc4] py-10 mt-auto">
