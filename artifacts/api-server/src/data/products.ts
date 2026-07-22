@@ -1,3 +1,5 @@
+/** Static product catalogue — source of truth until the DB is populated. */
+
 export type Product = {
   id: string;
   name: string;
@@ -10,13 +12,6 @@ export type Product = {
   tags?: string[];
   inStock?: boolean;
 };
-
-export const CATEGORIES = [
-  'Weaponry',
-  'Armour',
-  'Clothing',
-  'Accessories',
-] as const;
 
 export const PRODUCTS: Product[] = [
   { id: "sw-1", name: "Duelist Sword – Vanguard Black", cat: "weaponry", sub: "swords", price: 4800, badge: "new", image: "/images/sword.png", desc: "A sleek duelist blade forged for collectors and LARP enthusiasts. Durable polypropylene construction with a steel-grey finish. Perfect for display or reenactment.", tags: ["sword","larp","duelist"], inStock: true },

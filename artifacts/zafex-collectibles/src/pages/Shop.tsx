@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Link, useLocation } from 'wouter';
+import { Link, useSearch } from 'wouter';
 import {
   ChevronDown,
   Grid2X2,
@@ -87,8 +87,8 @@ function FilterSection({
 /* ─── Main Component ──────────────────────────────────────────────────── */
 
 const Shop = () => {
-  const [location] = useLocation();
-  const searchParams = new URLSearchParams(window.location.search);
+  const queryString = useSearch();
+  const searchParams = new URLSearchParams(queryString);
   const catParam  = searchParams.get('cat');
   const subParam  = searchParams.get('sub');
   const badgeParam = searchParams.get('badge');
@@ -164,6 +164,9 @@ const Shop = () => {
         });
         if (!inRange) return false;
       }
+
+      // In-stock filter
+      if (inStockOnly && p.inStock === false) return false;
 
       // Search
       if (search.trim()) {
