@@ -186,7 +186,35 @@ const Refund = () => (
     <p className="mt-4">Email: <a className="text-[#8b6914] hover:underline" href="mailto:zafexcollectibles@gmail.com">zafexcollectibles@gmail.com</a><br />Phone / WhatsApp: <a className="text-[#8b6914] hover:underline" href="tel:+918273506540">+91-8273506540</a></p>
   </ContentPage>
 );
-const Terms    = () => <ContentPage title="Terms & Conditions"><p>By purchasing from Zafex Collectibles & Zafs, you agree that you are of legal age to purchase bladed replicas in your jurisdiction. The buyer assumes all responsibility for compliance with local laws regarding the import and ownership of swords, armour, and related items.</p></ContentPage>;
+const Terms = () => (
+  <ContentPage title="Terms & Conditions">
+    <p>By using the Zafex Collectibles website, you agree to the following terms.</p>
+
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Products</h3>
+    <p>All products are handcrafted. Minor differences in color, finish, texture, or dimensions are part of the handmade manufacturing process and should not be considered defects.</p>
+
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Pricing</h3>
+    <p>Prices may change without prior notice.</p>
+
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Orders</h3>
+    <p>We reserve the right to cancel or refuse any order if necessary, including cases involving pricing errors, suspected fraud, or product availability.</p>
+
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Custom Orders</h3>
+    <p>Custom-made products cannot be canceled once production has started.</p>
+
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Intellectual Property</h3>
+    <p>All website content, including text, photographs, logos, graphics, and product descriptions, is the property of Zafex Collectibles and may not be copied without written permission.</p>
+
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Limitation of Liability</h3>
+    <p>Zafex Collectibles shall not be liable for indirect or consequential damages arising from the use of our products or website.</p>
+
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Governing Law</h3>
+    <p>These Terms shall be governed by the laws of India.</p>
+
+    <h3 className="mt-8 mb-4 font-serif text-xl text-[#1a1a18]">Contact</h3>
+    <p>For questions regarding these Terms, please contact our customer support team.</p>
+  </ContentPage>
+);
 const BuyingGuides = () => <ContentPage title="Buying Guides"><p>Explore our buying guides for choosing the right armor, chainmail, clothing, and accessories for your collection, reenactment, or costume.</p></ContentPage>;
 const ChainmailGuide = () => <ContentPage title="Chainmail Size Guide"><p>For the best fit, measure around your chest, waist, shoulders, and arms while wearing the clothing you plan to wear underneath. Contact our team for help with custom measurements.</p></ContentPage>;
 const HelmetGuide = () => <ContentPage title="Helmet Size Guide"><p>Measure around your head at eyebrow level and choose the closest size. A small amount of room is recommended for comfort and a padded liner.</p></ContentPage>;
